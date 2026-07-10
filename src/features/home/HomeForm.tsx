@@ -47,7 +47,7 @@ export default function HomeForm() {
         {/* Form card */}
         <div className="w-full rounded-md bg-[#FFF8F2] border border-[#EDD5B8] shadow-md p-6 flex flex-col gap-4">
           <p className="text-sm text-[#7A5C45] text-center">
-            Nhập tên khách mời để tạo thiệp mời cá nhân
+            Nhập họ tên của bạn để xem thiệp mời nè
           </p>
 
           <form onSubmit={onSubmit} noValidate className="flex flex-col gap-3">
@@ -63,7 +63,7 @@ export default function HomeForm() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Ví dụ: Nguyễn Văn An"
+                placeholder="Ví dụ: Hiếu thứ hai"
                 autoComplete="name"
                 className="w-full rounded-md border border-[#EDD5B8] bg-white px-3 py-2.5 text-sm text-[#3D2B1F] placeholder:text-[#B08060] outline-none transition-colors focus:border-[#FFB347] focus:ring-2 focus:ring-[#FFB347]/30"
                 aria-describedby={error ? "guest-name-error" : undefined}
@@ -86,7 +86,7 @@ export default function HomeForm() {
               className="flex w-full items-center justify-center gap-2 rounded-md bg-[#FFB347] px-4 py-3 text-sm font-semibold text-[#3D2B1F] transition-colors hover:bg-[#FFA020] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFB347] focus-visible:ring-offset-2"
             >
               {loading && <LoadingCircle size="sm" />}
-              Tạo thiệp mời
+              Xem thiệp mời
             </button>
           </form>
         </div>
