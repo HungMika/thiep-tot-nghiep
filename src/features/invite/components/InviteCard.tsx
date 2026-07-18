@@ -1,15 +1,16 @@
 "use client"
 
 import { useState } from "react"
-import { MapPin, MousePointerClick } from "lucide-react"
-import { EVENT } from "../constants"
+import { MapPin, MousePointerClick, ExternalLink } from "lucide-react"
+import type { EventConfig } from "../constants"
 import CountdownTimer from "./CountdownTimer"
 
 interface InviteCardProps {
-  guestName: string
+  event: EventConfig
+  guest: string
 }
 
-export default function InviteCard({ guestName }: InviteCardProps) {
+export default function InviteCard({ event, guest }: InviteCardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
 
   return (
@@ -27,7 +28,7 @@ export default function InviteCard({ guestName }: InviteCardProps) {
             <div
               className="absolute inset-0 bg-cover"
               style={{
-                backgroundImage: `url('${EVENT.bgImage}')`,
+                backgroundImage: `url('${event.bgImage}')`,
                 backgroundPosition: "center 20%",
               }}
             />
@@ -40,7 +41,7 @@ export default function InviteCard({ guestName }: InviteCardProps) {
             {/* school name pill */}
             <div className="absolute top-3 left-0 right-0 flex justify-center">
               <span className="font-vietnam text-white text-xs px-4 py-1 rounded-full bg-black/30 tracking-[0.12em]">
-                TRƯỜNG ĐẠI HỌC SƯ PHẠM TP.HCM
+                {event.school.toUpperCase()}
               </span>
             </div>
           </div>
@@ -49,8 +50,7 @@ export default function InviteCard({ guestName }: InviteCardProps) {
           <div className="bg-[#FFF8F2] px-6 pt-2 pb-6 flex flex-col items-center gap-3">
 
             <div className="text-center">
-              <p className="font-vietnam text-xs text-[#B08060]">{EVENT.degree}</p>
-              <p className="font-playfair font-bold text-xl text-[#3D2B1F] leading-snug">{EVENT.hostName}</p>
+              <p className="font-playfair font-bold text-xl text-[#3D2B1F] leading-snug">{event.displayName}</p>
             </div>
 
             <div className="w-10 h-0.5 bg-[#FFB347]" />
@@ -58,34 +58,37 @@ export default function InviteCard({ guestName }: InviteCardProps) {
             <div className="text-center">
               <p className="font-playfair italic text-sm text-[#7A5C45] mb-1">Xin trân trọng kính mời</p>
               <p className="font-playfair font-bold text-3xl text-[#3D2B1F] leading-tight border-b-2 border-[#FFB347] pb-1">
-                {guestName}
+                {guest || "Quý khách"}
               </p>
               <p className="font-vietnam text-sm text-[#7A5C45] mt-1">đến tham dự Lễ Tốt Nghiệp</p>
             </div>
 
             <p className="font-vietnam font-semibold text-sm text-[#3D2B1F] text-center">
-              {EVENT.displayDatetime}
+              {event.displayDatetime}
             </p>
 
             <div>
               <p className="font-vietnam text-xs text-[#B08060] text-center mb-2">Thời gian còn lại</p>
-              <CountdownTimer />
+              <CountdownTimer datetime={event.datetime} />
             </div>
 
             <a
-              href={EVENT.mapUrl}
+              href={event.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-2 hover:opacity-75 transition-opacity"
+              className="group flex items-start gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-[#FFB347]/10"
             >
               <MapPin size={14} className="mt-0.5 shrink-0 text-[#FFB347]" />
-              <span className="font-vietnam text-sm text-[#7A5C45] text-left">{EVENT.venue}</span>
+              <span className="flex-1 font-vietnam text-sm text-[#7A5C45] text-left group-hover:text-[#3D2B1F] transition-colors">
+                {event.venue}
+              </span>
+              <ExternalLink size={12} className="mt-0.5 shrink-0 text-[#B08060] group-hover:text-[#FFB347] transition-colors" />
             </a>
 
           </div>
         </div>
 
-        {/* ── BACK FACE: hcmue.webp cover — click to flip ── */}
+        {/* ── BACK FACE: school image cover — click to flip ── */}
         <div
           className="card-face-back rounded-xl"
           onClick={() => setIsFlipped(true)}
@@ -95,7 +98,7 @@ export default function InviteCard({ guestName }: InviteCardProps) {
           {/* backgroundImage uses a JS template literal → style is correct here */}
           <div
             className="w-full h-full bg-cover bg-center"
-            style={{ backgroundImage: `url('${EVENT.bgImage}')` }}
+            style={{ backgroundImage: `url('${event.bgImage}')` }}
           />
 
           {/* Dark overlay — bg-black/55 */}

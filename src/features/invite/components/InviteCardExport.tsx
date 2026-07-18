@@ -1,13 +1,14 @@
 import { forwardRef } from "react"
-import { EVENT } from "../constants"
+import type { EventConfig } from "../constants"
 import { EXPORT_WIDTH, EXPORT_HEIGHT } from "../utils/exportHelpers"
 
 interface InviteCardExportProps {
-  guestName: string
+  event: EventConfig
+  guest: string
 }
 
 const InviteCardExport = forwardRef<HTMLDivElement, InviteCardExportProps>(
-  function InviteCardExport({ guestName }, ref) {
+  function InviteCardExport({ event, guest }, ref) {
     return (
       <div
         ref={ref}
@@ -27,7 +28,7 @@ const InviteCardExport = forwardRef<HTMLDivElement, InviteCardExportProps>(
             style={{
               position: "absolute",
               inset: 0,
-              backgroundImage: `url('${EVENT.bgImage}')`,
+              backgroundImage: `url('${event.bgImage}')`,
               backgroundSize: "cover",
               backgroundPosition: "center 20%",
             }}
@@ -59,7 +60,7 @@ const InviteCardExport = forwardRef<HTMLDivElement, InviteCardExportProps>(
                 padding: "5px 20px",
               }}
             >
-              {EVENT.school}
+              {event.school}
             </span>
           </div>
         </div>
@@ -80,11 +81,8 @@ const InviteCardExport = forwardRef<HTMLDivElement, InviteCardExportProps>(
         >
           {/* Host */}
           <div>
-            <p style={{ fontFamily: "var(--font-be-vietnam), sans-serif", fontSize: 14, color: "#B08060", margin: "0 0 4px" }}>
-              {EVENT.degree}
-            </p>
             <p style={{ fontFamily: "var(--font-playfair), serif", fontWeight: 700, fontSize: 28, color: "#3D2B1F", margin: 0, lineHeight: 1.2 }}>
-              {EVENT.hostName}
+              {event.displayName}
             </p>
           </div>
 
@@ -108,7 +106,7 @@ const InviteCardExport = forwardRef<HTMLDivElement, InviteCardExportProps>(
                 paddingBottom: 4,
               }}
             >
-              {guestName}
+              {guest || "Quý khách"}
             </p>
             <p style={{ fontFamily: "var(--font-be-vietnam), sans-serif", fontSize: 15, color: "#7A5C45", margin: 0 }}>
               đến tham dự Lễ Tốt Nghiệp
@@ -117,12 +115,12 @@ const InviteCardExport = forwardRef<HTMLDivElement, InviteCardExportProps>(
 
           {/* Date/time */}
           <p style={{ fontFamily: "var(--font-be-vietnam), sans-serif", fontWeight: 600, fontSize: 17, color: "#3D2B1F", margin: "4px 0 0", textAlign: "center" }}>
-            {EVENT.displayDatetime}
+            {event.displayDatetime}
           </p>
 
           {/* Address — plain text, no link */}
           <p style={{ fontFamily: "var(--font-be-vietnam), sans-serif", fontSize: 13, color: "#7A5C45", textAlign: "center", margin: 0, lineHeight: 1.6 }}>
-            {EVENT.venue}
+            {event.venue}
           </p>
         </div>
       </div>

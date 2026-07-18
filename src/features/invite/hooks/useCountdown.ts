@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { EVENT } from "../constants"
 
 interface TimeLeft {
   days: number
@@ -23,13 +22,13 @@ function calcTimeLeft(target: Date): TimeLeft {
   }
 }
 
-export function useCountdown() {
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calcTimeLeft(EVENT.datetime))
+export function useCountdown(target: Date) {
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calcTimeLeft(target))
 
   useEffect(() => {
-    const id = setInterval(() => setTimeLeft(calcTimeLeft(EVENT.datetime)), 1000)
+    const id = setInterval(() => setTimeLeft(calcTimeLeft(target)), 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [target])
 
   return timeLeft
 }

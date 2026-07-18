@@ -1,12 +1,16 @@
 "use client"
 
 import { MapPin } from "lucide-react"
-import { EVENT } from "../constants"
+import type { EventConfig } from "../constants"
 
-export default function MapButton() {
+interface MapButtonProps {
+  mapUrl: EventConfig["mapUrl"]
+}
+
+export default function MapButton({ mapUrl }: MapButtonProps) {
   return (
     <a
-      href={EVENT.mapUrl}
+      href={mapUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center justify-center gap-2 rounded-md bg-[#FFB347] px-4 py-2 text-sm font-medium text-[#3D2B1F] transition-colors hover:bg-[#FFA020] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFB347] focus-visible:ring-offset-2"

@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { checkHostExists } from "./actions"
 
 interface HomeFormState {
-  name: string
+  hostName: string
   error: string
   loading: boolean
 }
@@ -12,20 +13,20 @@ interface HomeFormState {
 export function useHomeForm() {
   const router = useRouter()
   const [state, setState] = useState<HomeFormState>({
-    name: "",
+    hostName: "",
     error: "",
     loading: false,
   })
 
-  const setName = (value: string) => {
-    setState((prev) => ({ ...prev, name: value, error: "" }))
+  const setHostName = (value: string) => {
+    setState((prev) => ({ ...prev, hostName: value, error: "" }))
   }
 
   const validate = (): boolean => {
-    if (state.name.trim().length < 2) {
+    if (state.hostName.trim().length < 2) {
       setState((prev) => ({
         ...prev,
-        error: "Vui lòng nhập họ và tên ít nhất 2 ký tự.",
+        error: "Vui lòng nhập hostName ít nhất 2 ký tự.",
       }))
       return false
     }
@@ -36,8 +37,19 @@ export function useHomeForm() {
     e.preventDefault()
     if (!validate()) return
     setState((prev) => ({ ...prev, loading: true }))
-    router.push(`/invite/${encodeURIComponent(state.name.trim())}`)
+
+    const exists = await checkHostExists(state.hostName.trim())
+    if (!exists) {
+      setState((prev) => ({
+        ...prev,
+        loading: false,
+        error: "Không tìm thấy thông tin của bạn trong hệ thống.",
+      }))
+      return
+    }
+
+    router.push(`/${state.hostName.trim()}`)
   }
 
-  return { ...state, setName, onSubmit }
+  return { ...state, setHostName, onSubmit }
 }

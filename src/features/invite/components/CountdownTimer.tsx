@@ -1,9 +1,14 @@
 "use client"
 
 import { useCountdown } from "../hooks/useCountdown"
+import type { EventConfig } from "../constants"
 
-export default function CountdownTimer() {
-  const { days, hours, isPast } = useCountdown()
+interface CountdownTimerProps {
+  datetime: EventConfig["datetime"]
+}
+
+export default function CountdownTimer({ datetime }: CountdownTimerProps) {
+  const { days, hours, isPast } = useCountdown(datetime)
 
   if (isPast) {
     return (
