@@ -17,9 +17,9 @@ const beVietnam = Be_Vietnam_Pro({
 })
 
 export const metadata: Metadata = {
-  title: "Thiệp Mời Tốt Nghiệp — Đặng Quốc Hưng",
+  title: "Thiệp Mời Tốt Nghiệp",
   description:
-    "Thiệp mời lễ tốt nghiệp cử nhân Công Nghệ Thông Tin của Đặng Quốc Hưng tại Trường Đại học Sư Phạm TP.HCM.",
+    "Thiệp mời lễ tốt nghiệp",
 }
 
 export default function RootLayout({
