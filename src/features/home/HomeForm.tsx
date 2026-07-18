@@ -9,7 +9,7 @@ export default function HomeForm() {
   const { name, error, loading, setName, onSubmit } = useHomeForm()
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+    <main className="relative min-h-dvh flex flex-col items-center justify-start overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
@@ -28,7 +28,7 @@ export default function HomeForm() {
       <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#FFEBD3] to-transparent pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center gap-8 px-4 py-10 w-full max-w-sm">
+      <div className="relative z-10 flex flex-col items-center gap-8 px-4 pt-16 pb-10 w-full max-w-sm">
         {/* Hero text */}
         <div className="flex flex-col items-center gap-2 text-center">
           <p className="text-xs uppercase tracking-widest text-[#7A5C45] font-medium">
@@ -66,6 +66,7 @@ export default function HomeForm() {
                 placeholder="Ví dụ: Hiếu thứ hai"
                 autoComplete="name"
                 className="w-full rounded-md border border-[#EDD5B8] bg-white px-3 py-2.5 text-sm text-[#3D2B1F] placeholder:text-[#B08060] outline-none transition-colors focus:border-[#FFB347] focus:ring-2 focus:ring-[#FFB347]/30"
+                onFocus={(e) => e.currentTarget.scrollIntoView({ behavior: "smooth", block: "center" })}
                 aria-describedby={error ? "guest-name-error" : undefined}
                 aria-invalid={!!error}
               />
